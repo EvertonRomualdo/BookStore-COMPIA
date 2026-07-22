@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+:root{
+  /* --- Cor --- */
+  --ink:        #14192B;
+  --ink-soft:   #1C2338;
+  --paper:      #EFF1EA;
+  --paper-dim:  #E6E8DF;
+  --card:       #FFFFFF;
+  --rule:       #D6D2C2;
+  --rule-soft:  #E3E0D2;
+  --text:       #1B1F2A;
+  --text-muted: #5B5F6B;
+  --text-on-ink:#EDEEE6;
+  --text-on-ink-muted: #9CA2AE;
+
+  --amber:      #E3A61E;
+  --amber-deep: #B9840D;
+  --amber-tint: #FBF0D6;
+
+  --teal:       #1F6F6B;
+  --teal-deep:  #164F4C;
+  --teal-tint:  #E1EDEC;
+
+  --red-tag:    #A23E2B;
+
+  /* --- Tipografia --- */
+  --font-display: 'Fraunces', serif;
+  --font-body: 'IBM Plex Sans', -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  /* --- Espaçamento / layout --- */
+  --maxw: 1240px;
+  --radius-sm: 3px;
+  --radius-md: 6px;
+  --shadow-card: 0 1px 2px rgba(20,25,43,0.06), 0 8px 20px -12px rgba(20,25,43,0.18);
+  --shadow-lift: 0 20px 40px -20px rgba(20,25,43,0.35);
+}
