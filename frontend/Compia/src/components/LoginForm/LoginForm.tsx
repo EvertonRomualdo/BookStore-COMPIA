@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { DefaultInput } from '../DefaultInput/DefaultInput';
 import { DefaultButton } from '../DefaultButton/DefaultButton';
 import Header from '../Header/Header';
+import { Link } from 'react-router-dom';
 
 const loginSchema = z.object({
   email: z.string().min(1, 'O e-mail é obrigatório.').email('Formato de e-mail inválido.'),
@@ -73,7 +74,7 @@ function LoginForm() {
             </div>
 
             <div className="mt-4 text-sm text-gray-600">
-              Ainda não tem uma conta? <a href="#" className="text-purple-600 hover:text-purple-800 font-semibold transition-colors">Cadastre-se</a>
+              Ainda não tem uma conta? <span className="text-purple-600 hover:text-purple-800 font-semibold transition-colors"><Link to={"/register"}>Cadastre-se</Link></span>
             </div>
 
           </form> 

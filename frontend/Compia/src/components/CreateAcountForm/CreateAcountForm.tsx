@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { DefaultInput } from '../DefaultInput/DefaultInput';
 import { DefaultButton } from '../DefaultButton/DefaultButton';
-import Header from '../Header/Header';
+import { Link } from 'react-router-dom';
 
 const createAccountSchema = z.object({
   name: z.string().min(3, 'O nome deve ter no mínimo 3 caracteres.'),
@@ -29,8 +29,7 @@ function CreateAccountForm() {
 
   return (
     <>
-      <Header/>
-      <div className='w-full min-h-screen bg-[#F9FAFB] flex flex-col justify-center items-center'>
+      
         <div className='flex flex-col gap-2 max-w-lg bg-white p-8 rounded-lg shadow-md justify-around items-center'>
           
           <div className='flex flex-col items-center justify-center m-2 text-center'>
@@ -71,12 +70,11 @@ function CreateAccountForm() {
               <DefaultButton type='submit'>Criar Conta</DefaultButton>
             </div>
             <div className="mt-4 text-sm text-gray-600">
-              Já tem uma conta? <a href="#" className="text-purple-600 hover:text-purple-800 font-semibold transition-colors">Entrar</a>
+              Já tem uma conta? <span className="text-purple-600 hover:text-purple-800 font-semibold transition-colors"><Link to={"/login"}>Entrar</Link></span>
             </div>
 
           </form> 
         </div>
-      </div>
   </>
   );
 }

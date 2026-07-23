@@ -2,15 +2,21 @@ import './style/normalize.css'
 import './style/global.css'
 import './style/app.css'
 
-import CreateAccountForm from './components/CreateAcountForm/CreateAcountForm'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import LoginForm from './components/LoginForm/LoginForm'
+import CadasterPage from './pages/CadasterPage'
 function App() {
 
-
-  //TODO - Implementacao de Debug
+  //Rotas das paginas
   return (
-    <div className='w-screen h-screen bg-(--paper)'>
-      <CreateAccountForm></CreateAccountForm>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<CadasterPage/>}/>
+        <Route path='/login' element={<LoginForm/>}/>
+         <Route path='/register' element={<CadasterPage/>}/>
+        <Route path='*' element={<><h1>Not Found</h1></>}/>
+      </Routes>
+    </BrowserRouter>
   )
   
 }

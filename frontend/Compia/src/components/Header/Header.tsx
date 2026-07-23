@@ -20,7 +20,7 @@ function Header(){
 
     return (
 
-        <div className="flex justify-between items-center bg-white shadow-2xs">
+        <div className="flex w-full justify-between items-center bg-white shadow-2xs sticky top-0">
             <Logo/>
             <NavBar className='flex gap-15 text-1xl items-center justify-between h-100%' items={itensNavegation}/>
             <NavBar className='flex gap-7 items-center justify-between h-100% p-4' items={itensSocial}/>
