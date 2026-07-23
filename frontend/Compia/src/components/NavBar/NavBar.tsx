@@ -1,19 +1,46 @@
-function NavBar() {
+import { useState } from "react";
+import type { NavItem } from "./NavIten";
+
+type NavBarProps = {
+    items: NavItem[];
+
+    className?: string;
+
+    activeClassName?: string;
+    inactiveClassName?: string;
+};
+
+function NavBar({
+    items,
+    className,
+    activeClassName = " text- text-purple-600 border-b-2 border-purple-600 cursor-pointer",
+    inactiveClassName = "text-gray-600 hover:text-purple-600 cursor-pointer",
+}: NavBarProps) {
+
+    const [activeItem, setActiveItem] = useState(items[0]?.id);
 
     return (
-
-        //TODO - Implementar focus dinâmico
-
-        <>
-            <nav className="hidden md:flex space-x-8">
-                <a href="#"  className="text-[#683EE7] font-medium border-b-2 pb-1">Início</a>
-                <a href="#catalogo" className="text-gray-600 hover:text-[#683EE7] font-medium transition-colors">Catálogo</a>
-                <a href="#categorias" className="text-gray-600 hover:text-[#683EE7] font-medium transition-colors">Categorias</a>
-                <a href="#" className="text-gray-600 hover:text-[#683EE7] font-medium transition-colors">Sobre</a>
-            </nav>
-        </>
-        
-    )
+        <nav className={className}>
+            {items.map(item => (
+                <a
+                    key={item.id}
+                    href={item.href}
+                    onClick={() => {
+                        setActiveItem(item.id);
+                        item.onClick?.();
+                    }}
+                    className={
+                        activeItem === item.id
+                            ? activeClassName
+                            : inactiveClassName
+                    }
+                >
+                    {item.icon}
+                    {item.label}
+                </a>
+            ))}
+        </nav>
+    );
 }
 
-export default NavBar
+export default NavBar;

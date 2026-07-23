@@ -2,13 +2,15 @@ import './style/normalize.css'
 import './style/global.css'
 import './style/app.css'
 
-import CadasterPage from './pages/CadasterPage'
+import CreateAccountForm from './components/CreateAcountForm/CreateAcountForm'
 function App() {
 
 
   //TODO - Implementacao de Debug
   return (
-    <CadasterPage/>
+    <div className='w-screen h-screen bg-(--paper)'>
+      <CreateAccountForm></CreateAccountForm>
+    </div>
   )
   
 }
