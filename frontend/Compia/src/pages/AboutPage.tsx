@@ -6,7 +6,7 @@ import {getImageUrl} from "../helpers/imageHelper.ts";
 
 function AboutPage() {
     return (
-        <div className="bg-[#F9FAFB] min-h-screen flex flex-col font-sans overflow-hidden">
+        <div className="bg-[#F9FAFB] min-h-screen flex flex-col font-sans">
             <Header />
 
             <main className="flex-1 flex flex-col gap-12 py-12 px-6 max-w-7xl mx-auto w-full">

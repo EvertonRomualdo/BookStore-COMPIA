@@ -9,7 +9,7 @@ import {getImageBookUrl} from "../helpers/imageHelper.ts";
 
 export function HomePage() {
   return (
-    <div className="min-h-screen bg-[#F9FAFB] overflow-hidden">
+    <div className="min-h-screen bg-[#F9FAFB]">
         <Header />
 
         {/* Intro*/}
