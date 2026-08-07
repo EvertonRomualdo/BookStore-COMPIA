@@ -2,6 +2,7 @@ import Footer from '../components/Footer/Footer';
 import Header from "../components/Header/Header";
 import InformationCardIcon from "../components/InformationCard/InformationCardIcon";
 import { Target, Eye, Gem } from "lucide-react";
+import {getImageUrl} from "../helpers/imageHelper.ts";
 
 function AboutPage() {
     return (
@@ -18,7 +19,8 @@ function AboutPage() {
                 <div className="flex flex-col md:flex-row items-center justify-between bg-white rounded-2xl overflow-hidden shadow-xl mb-15">
                     <img
                         className="w-full md:w-1/2 h-64 md:h-100 object-cover"
-                        src="src/images/ufcg.jpg"
+                        src={getImageUrl('ufcg.jpg',
+                            'https://res.cloudinary.com/l7n5c7ue/image/upload/v1786073667/ufcg_q1xzkt.jpg')}
                         alt="Foto da UFCG"
                     />
 
@@ -56,7 +58,11 @@ function AboutPage() {
                     <div className="flex flex-wrap justify-center gap-10 md:gap-20">
                         <div className="flex flex-col items-center gap-3">
                             <div className="w-20 h-20 bg-[#F9FAFB] rounded-full flex items-center justify-center shadow-inner border border-gray-200 overflow-hidden p-4">
-                                <img src="src/images/railway.png" alt="Logo Railway" className="w-full h-full object-contain" />
+                                <img src={getImageUrl('railway.png',
+                                    'https://res.cloudinary.com/l7n5c7ue/image/upload/v1786073990/railway_h9eygp.png')}
+                                     alt="Logo Railway" className="w-full h-full object-contain"
+                                     loading="lazy"
+                                />
                             </div>
                             <div className="text-center">
                                 <span className="font-bold text-gray-900 block">Railway</span>
@@ -66,7 +72,11 @@ function AboutPage() {
 
                         <div className="flex flex-col items-center gap-3">
                             <div className="w-20 h-20 bg-[#F9FAFB] rounded-full flex items-center justify-center shadow-inner border border-gray-200 overflow-hidden p-4">
-                                <img src="src/images/java.png" alt="Logo Java" className="w-full h-full object-contain" />
+                                <img src={getImageUrl('java.png',
+                                    'https://res.cloudinary.com/l7n5c7ue/image/upload/v1786073989/java_defgnj.png')}
+                                     alt="Logo Java" className="w-full h-full object-contain"
+                                     loading="lazy"
+                                />
                             </div>
                             <div className="text-center">
                                 <span className="font-bold text-gray-900 block">Java</span>
@@ -76,11 +86,29 @@ function AboutPage() {
 
                         <div className="flex flex-col items-center gap-3">
                             <div className="w-20 h-20 bg-[#F9FAFB] rounded-full flex items-center justify-center shadow-inner border border-gray-200 overflow-hidden p-4">
-                                <img src="src/images/react.png" alt="Logo React" className="w-full h-full object-contain" />
+                                <img src={getImageUrl("react.png",
+                                    'https://res.cloudinary.com/l7n5c7ue/image/upload/v1786073990/react_hyvmja.png')}
+                                     alt="Logo React" className="w-full h-full object-contain"
+                                     loading="lazy"
+                                />
                             </div>
                             <div className="text-center">
                                 <span className="font-bold text-gray-900 block">React</span>
                                 <span className="text-sm text-gray-500">Desenvolvimento Frontend</span>
+                            </div>
+                        </div>
+
+                        <div className="flex flex-col items-center gap-3">
+                            <div className="w-20 h-20 bg-[#F9FAFB] rounded-full flex items-center justify-center shadow-inner border border-gray-200 overflow-hidden p-4">
+                                <img src={getImageUrl("cloudinary.png",
+                                    'https://res.cloudinary.com/l7n5c7ue/image/upload/v1786073247/samples/cloudinary-icon.png')}
+                                     alt="Logo Cloudinary" className="w-full h-full object-contain"
+                                     loading="lazy"
+                                />
+                            </div>
+                            <div className="text-center">
+                                <span className="font-bold text-gray-900 block">Cloudinary</span>
+                                <span className="text-sm text-gray-500">CDN de Imagens</span>
                             </div>
                         </div>
                     </div>
@@ -93,7 +121,11 @@ function AboutPage() {
 
                         <div className="flex flex-col items-center gap-4 text-center max-w-62.5">
                             <a href="https://github.com/EvertonRomualdo" target="_blank" rel="noopener noreferrer" className="w-50 h-50 rounded-full overflow-hidden border-4 border-white shadow-xl bg-gray-200 block hover:scale-105 transition-transform duration-300">
-                                <img src="src/images/everton.jpeg" alt="Foto de Everton" className="w-full h-full object-cover object-center" />
+                                <img src={getImageUrl('everton.jpeg',
+                                    'https://res.cloudinary.com/l7n5c7ue/image/upload/v1786073989/everton_nuwjl6.jpg')}
+                                     alt="Foto de Everton" className="w-full h-full object-cover object-center"
+                                     loading="lazy"
+                                />
                             </a>
 
                             <div className="flex flex-col items-center">
@@ -105,7 +137,11 @@ function AboutPage() {
                                     rel="noopener noreferrer"
                                     className="flex items-center gap-2 mt-2 px-4 py-1.5 bg-gray-100 hover:bg-gray-200 rounded-full shadow-sm transition-colors"
                                 >
-                                    <img src="src/images/github.png" alt="GitHub Logo" className="w-5 h-5 object-contain" />
+                                    <img src={getImageUrl('github.png',
+                                        'https://res.cloudinary.com/l7n5c7ue/image/upload/v1786073989/github_xchjli.png')}
+                                         alt="GitHub Logo" className="w-5 h-5 object-contain"
+                                         loading="lazy"
+                                    />
                                     <span className="font-medium text-sm text-gray-700">@EvertonRomualdo</span>
                                 </a>
 
@@ -114,8 +150,10 @@ function AboutPage() {
                         </div>
 
                         <div className="flex flex-col items-center gap-4 text-center max-w-62.5">
+                            {/*TODO add erick photo and loading = lazy*/}
                             <a href="https://github.com/erikdionisio" target="_blank" rel="noopener noreferrer" className="w-50 h-50 rounded-full overflow-hidden border-4 border-white shadow-xl bg-gray-200 block hover:scale-105 transition-transform duration-300">
                                 <img src="" alt="Foto do Colaborador 2" className="w-full h-full object-cover object-center" />
+
                             </a>
 
                             <div className="flex flex-col items-center">
@@ -127,7 +165,11 @@ function AboutPage() {
                                     rel="noopener noreferrer"
                                     className="flex items-center gap-2 mt-2 px-4 py-1.5 bg-gray-100 hover:bg-gray-200 rounded-full shadow-sm transition-colors"
                                 >
-                                    <img src="src/images/github.png" alt="GitHub Logo" className="w-5 h-5 object-contain" />
+                                    <img src={getImageUrl('github.png',
+                                        'https://res.cloudinary.com/l7n5c7ue/image/upload/v1786073989/github_xchjli.png')}
+                                         alt="GitHub Logo" className="w-5 h-5 object-contain"
+                                         loading="lazy"
+                                    />
                                     <span className="font-medium text-sm text-gray-700">@erikdionisio</span>
                                 </a>
 

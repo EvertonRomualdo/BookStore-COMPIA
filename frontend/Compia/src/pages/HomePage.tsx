@@ -5,12 +5,13 @@ import { Brain, Box, Shield, Server } from 'lucide-react';
 import ProductCard from '../components/ProductCard/ProductCard';
 import Footer from '../components/Footer/Footer';
 import { Link } from 'react-router';
+import {getImageBookUrl} from "../helpers/imageHelper.ts";
 
 export function HomePage() {
   return (
     <div className="min-h-screen bg-[#F9FAFB] overflow-hidden">
         <Header />
-      
+
         {/* Intro*/}
         <main className="max-w-7xl mx-auto px-6 sm:px-8 py-20 lg:py-32 flex flex-col-reverse lg:flex-row items-center justify-between gap-16">
             <div className="flex flex-col items-start gap-6 lg:w-1/2">
@@ -71,7 +72,9 @@ export function HomePage() {
                 <ProductCard
                     title="Arquitetura de Software Inteligente"
                     author="Por Dr. Carlos Almeida"
-                    imageUrl="src/images/books/arquiteturaSoftware.jpg"
+                    imageUrl={getImageBookUrl('arquiteturaSoftware.jpg',
+                        'https://res.cloudinary.com/l7n5c7ue/image/upload/v1786073824/arquiteturaSoftware_tmvn9d.jpg')}
+
                     price="R$ 120,00"
                     oldPrice="R$ 150,00"
                     isNew={true}
@@ -84,7 +87,8 @@ export function HomePage() {
                 <ProductCard
                     title="Fundamentos de Deep Learning"
                     author="Por Profa. Maria Silva"
-                    imageUrl="src/images/books/deepLearning.jpg"
+                    imageUrl={getImageBookUrl('deepLearning.jpg',
+                        'https://res.cloudinary.com/l7n5c7ue/image/upload/v1786073824/deepLearning_pjdxov.jpg')}
                     price="R$ 85,00"
                     tags={[
                     { label: 'E-BOOK', colorClass: 'bg-green-50 text-green-600' },
@@ -95,7 +99,8 @@ export function HomePage() {
                 <ProductCard
                     title="Cibersegurança e Redes Descentralizadas"
                     author="Por João Pereira"
-                    imageUrl="src/images/books/ciberSeguranca.jpg"
+                    imageUrl={getImageBookUrl('ciberSeguranca.jpg',
+                        'https://res.cloudinary.com/l7n5c7ue/image/upload/v1786073824/ciberSeguranca_s8op3x.jpg')}
                     price="R$ 140,00"
                     tags={[
                     { label: 'FÍSICO', colorClass: 'bg-blue-50 text-blue-600' },
@@ -106,7 +111,8 @@ export function HomePage() {
                 <ProductCard
                     title="Blockchain aplicado ao Mercado"
                     author="Por Ana Costa"
-                    imageUrl="src/images/books/blockchain.jpg"
+                    imageUrl={getImageBookUrl('blockchain.jpg',
+                        'https://res.cloudinary.com/l7n5c7ue/image/upload/v1786073824/blockchain_avkeir.jpg')}
                     price="R$ 185,00"
                     tags={[
                     { label: 'KIT FÍSICO+EBOOK', colorClass: 'bg-amber-50 text-amber-600' }
