@@ -74,6 +74,7 @@ export function HomePage() {
                     author="Por Dr. Carlos Almeida"
                     imageUrl={getImageBookUrl('arquiteturaSoftware.jpg',
                         'https://res.cloudinary.com/l7n5c7ue/image/upload/v1786073824/arquiteturaSoftware_tmvn9d.jpg')}
+                    loading='lazy'
 
                     price="R$ 120,00"
                     oldPrice="R$ 150,00"
@@ -89,6 +90,7 @@ export function HomePage() {
                     author="Por Profa. Maria Silva"
                     imageUrl={getImageBookUrl('deepLearning.jpg',
                         'https://res.cloudinary.com/l7n5c7ue/image/upload/v1786073824/deepLearning_pjdxov.jpg')}
+                    loading='lazy'
                     price="R$ 85,00"
                     tags={[
                     { label: 'E-BOOK', colorClass: 'bg-green-50 text-green-600' },
@@ -101,6 +103,7 @@ export function HomePage() {
                     author="Por João Pereira"
                     imageUrl={getImageBookUrl('ciberSeguranca.jpg',
                         'https://res.cloudinary.com/l7n5c7ue/image/upload/v1786073824/ciberSeguranca_s8op3x.jpg')}
+                    loading='lazy'
                     price="R$ 140,00"
                     tags={[
                     { label: 'FÍSICO', colorClass: 'bg-blue-50 text-blue-600' },
@@ -113,6 +116,7 @@ export function HomePage() {
                     author="Por Ana Costa"
                     imageUrl={getImageBookUrl('blockchain.jpg',
                         'https://res.cloudinary.com/l7n5c7ue/image/upload/v1786073824/blockchain_avkeir.jpg')}
+                    loading='lazy'
                     price="R$ 185,00"
                     tags={[
                     { label: 'KIT FÍSICO+EBOOK', colorClass: 'bg-amber-50 text-amber-600' }

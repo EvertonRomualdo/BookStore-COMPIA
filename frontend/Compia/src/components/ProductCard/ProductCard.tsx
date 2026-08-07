@@ -8,7 +8,8 @@ export interface Tag {
 export interface ProductCardProps {
   title: string;
   author: string;
-  imageUrl: string; 
+  imageUrl: string;
+  loading: 'eager' | 'lazy';
   price: string;
   oldPrice?: string;
   isNew?: boolean;
@@ -19,6 +20,7 @@ export function ProductCard({
   title,
   author,
   imageUrl,
+  loading,
   price,
   oldPrice,
   isNew,
@@ -40,6 +42,7 @@ export function ProductCard({
         <img 
           src={imageUrl} 
           alt={`Capa do livro ${title}`}
+          loading={loading}
           className="w-32 h-44 object-cover shadow-md rounded-r-md border-l-4 border-black/20 transform transition-transform duration-300 hover:scale-105"
         />
       </div>
