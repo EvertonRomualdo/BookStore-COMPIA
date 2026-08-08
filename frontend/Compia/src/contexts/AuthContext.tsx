@@ -8,6 +8,7 @@ interface AuthContextData {
     user: UserWithoutPassword | null;
     isLoading: boolean;
     login: (email: string, pass: string) => Promise<void>;
+    updateUser: (data: { name: string; email: string; address?: string; avatar?: string }) => Promise<void>;
     registerUser: (data: Omit<User, 'id'>) => Promise<void>;
     logout: () => Promise<void>;
 }
@@ -39,8 +40,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setUser(null);
     };
 
+    const updateUser = async (data: { name: string; email: string; address?: string; avatar?: string }) => {
+        if (!user) return;
+        const updatedUser = await authService.updateProfile(user.id, data);
+        setUser(updatedUser);
+    };
+
     return (
-        <AuthContext.Provider value={{ user, isLoading, login, registerUser, logout }}>
+        <AuthContext.Provider value={{ user, isLoading, login, registerUser, logout, updateUser}}>
             {children}
         </AuthContext.Provider>
     );

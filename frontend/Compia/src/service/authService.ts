@@ -73,5 +73,47 @@ export const authService = {
 
         const { password, ...userWithoutPassword } = user;
         return userWithoutPassword;
+    },
+
+    /**
+     * Atualiza dados do usuario
+     */
+    async updateProfile(userId: string, newData: { name: string; email: string; address?: string }): Promise<Omit<User, 'password'>> {
+        await delay(800);
+        const users = getItem<User[]>(STORAGE_KEYS.USERS) || [];
+        const userIndex = users.findIndex(u => u.id === userId);
+
+        if (userIndex === -1) throw new Error('Usuário não encontrado.');
+
+        if (newData.email !== users[userIndex].email) {
+            const emailExists = users.some(u => u.email === newData.email);
+            if (emailExists) throw new Error('Este e-mail já está em uso por outra conta.');
+        }
+
+        users[userIndex] = { ...users[userIndex], ...newData };
+        setItem(STORAGE_KEYS.USERS, users);
+
+        const { password, ...userWithoutPassword } = users[userIndex];
+        return userWithoutPassword;
+    },
+
+    /**
+     * Altera a senha validando a senha atual
+     */
+    async changePassword(userId: string, currentPass: string, newPass: string): Promise<void> {
+        await delay(800);
+        const users = getItem<User[]>(STORAGE_KEYS.USERS) || [];
+        const userIndex = users.findIndex(u => u.id === userId);
+
+        if (userIndex === -1) throw new Error('Usuário não encontrado.');
+
+        if (users[userIndex].password !== currentPass) {
+            throw new Error('A senha atual está incorreta.');
+        }
+
+        users[userIndex].password = newPass;
+        setItem(STORAGE_KEYS.USERS, users);
     }
+
+
 };

@@ -6,9 +6,10 @@ export interface User {
     password?: string;
     cpf?: string;
     address?: string;
+    avatar?: string;
 }
 
-//TODO
+//TODO service
 export interface Order {
     id: string;
     userId: string;
