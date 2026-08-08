@@ -15,7 +15,7 @@ function Header() {
     ];
 
     const itensSocial = [
-        { id: "Account", href: "/login", icon: <UserRound size='1.8rem' /> },
+        { id: "Account", href: "/account", icon: <UserRound size='1.8rem' /> },
         { id: "setting", href: "/cart", icon: <ShoppingCart size='1.8rem' /> }
     ];
 

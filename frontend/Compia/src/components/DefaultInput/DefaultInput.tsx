@@ -9,7 +9,7 @@ type DefaultInputProps = {
 
 export function DefaultInput({ id, type, labelText, placeholder, error, ...rest }: DefaultInputProps) {
     return (
-        <div className='flex flex-col p-2 gap-2 w-80'>
+        <div className='flex flex-col p-2 gap-2 w-full'>
             <label className='text-black font-medium' htmlFor={id}>
                 {labelText}
             </label>
