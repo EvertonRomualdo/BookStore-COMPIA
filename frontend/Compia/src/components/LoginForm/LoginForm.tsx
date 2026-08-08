@@ -4,7 +4,8 @@ import { z } from 'zod';
 import { DefaultInput } from '../DefaultInput/DefaultInput';
 import { DefaultButton } from '../DefaultButton/DefaultButton';
 import Header from '../Header/Header';
-import { Link } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
+import {useAuth} from "../../contexts/AuthContext.tsx";
 
 const loginSchema = z.object({
   email: z.string().min(1, 'O e-mail é obrigatório.').email('Formato de e-mail inválido.'),
@@ -14,17 +15,26 @@ const loginSchema = z.object({
 type LoginData = z.infer<typeof loginSchema>;
 
 function LoginForm() {
+  const { login } = useAuth(); // <-- Puxando a função de login
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
+    setError, // <-- Permite setar erros customizados no formulário
     formState: { errors, isSubmitting }
   } = useForm<LoginData>({
     resolver: zodResolver(loginSchema)
   });
 
   const onSubmit = async (data: LoginData) => {
-    //feacth da API - TODO
-    console.log('Autenticando usuário:', data);
+    try {
+      await login(data.email, data.password);
+      navigate('/account'); // Se der certo, vai pra conta!
+    } catch (error: any) {
+      // Se der erro (ex: senha errada), joga a mensagem do authService para a tela
+      setError('root', { message: error.message });
+    }
   };
 
   return (
@@ -40,6 +50,11 @@ function LoginForm() {
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-2 w-full p-2 items-center'>
+            {errors.root?.message && (
+                <div className="w-80 p-3 bg-red-50 text-red-600 text-sm font-semibold rounded-md border border-red-200 mb-2 text-center animate-in fade-in slide-in-from-top-2">
+                  {errors.root.message}
+                </div>
+            )}
             
             <DefaultInput
               id="email"

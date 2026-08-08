@@ -3,7 +3,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { DefaultInput } from '../DefaultInput/DefaultInput';
 import { DefaultButton } from '../DefaultButton/DefaultButton';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import {useAuth} from "../../contexts/AuthContext.tsx";
 
 const createAccountSchema = z.object({
   name: z.string().min(3, 'O nome deve ter no mínimo 3 caracteres.'),
@@ -14,17 +15,29 @@ const createAccountSchema = z.object({
 type CreateAccountData = z.infer<typeof createAccountSchema>;
 
 function CreateAccountForm() {
+  const { registerUser } = useAuth(); // <-- Puxando a função de registro
+  const navigate = useNavigate();
+
   const {
-    register,
+    register, // Este é o register do react-hook-form para plugar os inputs
     handleSubmit,
-    formState: { errors }
+    setError,
+    formState: { errors, isSubmitting }
   } = useForm<CreateAccountData>({
     resolver: zodResolver(createAccountSchema)
   });
 
-  const onSubmit = (data: CreateAccountData) => {
-    //backend fetch - TODO
-    console.log('Dados validados e prontos para envio:', data);
+  const onSubmit = async (data: CreateAccountData) => {
+    try {
+      await registerUser({
+        name: data.name,
+        email: data.email,
+        password: data.password
+      });
+      navigate('/login'); // Cadastrou e logou, vai direto pra conta!
+    } catch (error: any) {
+      setError('root', { message: error.message }); // Ex: E-mail já cadastrado
+    }
   };
 
   return (
@@ -38,7 +51,11 @@ function CreateAccountForm() {
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-2 w-full p-2 justify-around items-center'>
-            
+            {errors.root?.message && (
+                <div className="w-80 p-3 bg-red-50 text-red-600 text-sm font-semibold rounded-md border border-red-200 mb-2 text-center animate-in fade-in slide-in-from-top-2">
+                  {errors.root.message}
+                </div>
+            )}
             <DefaultInput
               id="name"
               labelText="Nome"
@@ -67,7 +84,10 @@ function CreateAccountForm() {
             />
 
             <div className='flex flex-col p-2 gap-2 w-80 mt-4'>
-              <DefaultButton type='submit'>Criar Conta</DefaultButton>
+              {/* Desabilita o botão enquanto estiver aguardando o "backend" */}
+              <DefaultButton type='submit' disabled={isSubmitting}>
+                {isSubmitting ? 'Criando...' : 'Criar Conta'}
+              </DefaultButton>
             </div>
             <div className="mt-4 text-sm text-gray-600">
               Já tem uma conta? <span className="text-purple-600 hover:text-purple-800 font-semibold transition-colors"><Link to={"/login"}>Entrar</Link></span>
