@@ -2,6 +2,8 @@ export const STORAGE_KEYS = {
     USERS: '@compia:users',
     SESSION: '@compia:session',
     ORDERS: '@compia:orders',
+    BOOKS: '@compia:books',
+    CART: '@compia:cart'
 };
 
 //Busca e converte um item do localStorage.

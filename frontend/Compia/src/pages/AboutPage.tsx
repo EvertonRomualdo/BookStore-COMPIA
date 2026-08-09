@@ -158,14 +158,17 @@ function AboutPage() {
                         </div>
 
                         <div className="flex flex-col items-center gap-4 text-center max-w-62.5">
-                            {/*TODO add erick photo and loading = lazy*/}
                             <a href="https://github.com/erikdionisio" target="_blank" rel="noopener noreferrer" className="w-50 h-50 rounded-full overflow-hidden border-4 border-white shadow-xl bg-gray-200 block hover:scale-105 transition-transform duration-300">
-                                <img src="" alt="Foto do Colaborador 2" className="w-full h-full object-cover object-center" />
-
+                                <img 
+                                    src={getImageUrl('erik.png', 'https://github.com/erikdionisio.png')} 
+                                    alt="Foto de Erik Dionisio" 
+                                    className="w-full h-full object-cover object-center" 
+                                    loading="lazy"
+                                />
                             </a>
 
                             <div className="flex flex-col items-center">
-                                <h4 className="text-xl font-bold text-gray-900">Erick Dionisio</h4>
+                                <h4 className="text-xl font-bold text-gray-900">Erik Dionisio</h4>
 
                                 <a
                                     href="https://github.com/erikdionisio"

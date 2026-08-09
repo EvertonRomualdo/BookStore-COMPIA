@@ -1,10 +1,28 @@
+import { useEffect, useState } from "react";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import { AccountSidebar } from "../components/AccountSidebar/AccountSidebar";
 import { OrderCard } from "../components/OrderCard/OrderCard";
-import { Book, Zap } from "lucide-react";
+import { Book, Zap, PackageOpen } from "lucide-react";
+import { getItem, STORAGE_KEYS } from "../service/storage";
+import { downloadEbook } from "../helpers/fileHelper";
+import { useAuth } from "../contexts/AuthContext"; 
 
 function AccountPage() {
+    const { user } = useAuth(); // 2. Puxando quem está logado
+    const [orders, setOrders] = useState<any[]>([]);
+
+    useEffect(() => {
+        const savedOrders = getItem<any[]>(STORAGE_KEYS.ORDERS) || [];
+        
+        if (user && user.email) {
+            const myOrders = savedOrders.filter((order: any) => order.userEmail === user.email);
+            setOrders(myOrders);
+        } else {
+            setOrders([]); 
+        }
+    }, [user]);
+
     return (
         <div className="bg-[#F9FAFB] min-h-screen flex flex-col font-sans">
             <Header />
@@ -14,43 +32,42 @@ function AccountPage() {
 
                     <AccountSidebar />
 
-
                     <section className="col-span-1 lg:col-span-3 flex flex-col gap-6">
                         <h1 className="text-2xl md:text-3xl font-bold text-slate-900 mb-2">
                             Histórico de Pedidos
                         </h1>
 
                         <div className="flex flex-col gap-5">
-
-                            <OrderCard
-                                orderNumber="40291"
-                                title="Arquitetura de Software Inteligente"
-                                date="12/07/2026"
-                                icon={<Book size={28} fill="currentColor" />}
-                                iconBgColor="bg-blue-50"
-                                iconTextColor="text-blue-400"
-                                statusText="Entregue"
-                                statusBgColor="bg-emerald-100"
-                                statusTextColor="text-emerald-700"
-                                price="R$ 120,00"
-                            />
-
-
-                            <OrderCard
-                                orderNumber="39920"
-                                title="Fundamentos de Deep Learning (E-book)"
-                                date="05/06/2026"
-                                icon={<Zap size={28} fill="currentColor" />}
-                                iconBgColor="bg-orange-50"
-                                iconTextColor="text-orange-400"
-                                statusText="Disponível"
-                                statusBgColor="bg-blue-100"
-                                statusTextColor="text-blue-700"
-                                actionButton={{
-                                    label: "Download",
-                                    onClick: () => console.log("Iniciando download...") // TODO: Lógica JS futura
-                                }}
-                            />
+                            {orders.length === 0 ? (
+                                <div className="bg-white p-10 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center text-center">
+                                    <PackageOpen size={48} className="text-gray-300 mb-4" />
+                                    <h2 className="text-xl font-bold text-gray-700 mb-1">Nenhum pedido encontrado</h2>
+                                    <p className="text-gray-500">Você ainda não realizou nenhuma compra conosco.</p>
+                                </div>
+                            ) : (
+                                orders.map((order, index) => (
+                                    <OrderCard 
+                                        key={index}
+                                        orderNumber={order.id}
+                                        title={order.title}
+                                        imageUrl={order.imageUrl}
+                                        date={order.date}
+                                        icon={order.isDigitalOnly ? <Zap size={28} fill="currentColor" /> : <Book size={28} fill="currentColor" />}
+                                        iconBgColor={order.isDigitalOnly ? "bg-orange-50" : "bg-blue-50"}
+                                        iconTextColor={order.isDigitalOnly ? "text-orange-400" : "text-blue-400"}
+                                        statusText={order.isDigitalOnly ? "Disponível" : "Preparando Envio"}
+                                        statusBgColor={order.isDigitalOnly ? "bg-blue-100" : "bg-emerald-100"}
+                                        statusTextColor={order.isDigitalOnly ? "text-blue-700" : "text-emerald-700"}
+                                    
+                                        price={`R$ ${order.total.toFixed(2).replace('.', ',')}`}
+                                        
+                                        actionButton={undefined} 
+                                        
+                                        items={order.items}
+                                        onDownloadItem={(bookTitle) => downloadEbook(bookTitle)}
+                                    />
+                                ))
+                            )}
                         </div>
                     </section>
                 </div>

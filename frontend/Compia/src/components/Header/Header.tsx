@@ -1,24 +1,44 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { ShoppingCart, UserRound, Menu, X } from "lucide-react";
-import Logo from "../Logo/Logo";
 import { Link } from "react-router-dom";
+import Logo from "../Logo/Logo";
 import NavBar from "../NavBar/NavBar";
 import { useAuth } from "../../contexts/AuthContext";
+import { CartContext } from "../../contexts/CartContext";
 
-function Header() {
+function Header(){
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { user } = useAuth();
+    const { cartItems } = useContext(CartContext);
+
+    // Calculando a quantidade total de livros
+    const totalItems = cartItems.reduce((acumulador, item) => {
+        return acumulador + item.quantity;
+    }, 0);
 
     const itensNavegation = [
         { id: "start", label: "Inicio", href: "/" },
         { id: "catalog", label: "Catálogo", href: "/catalog" },
         { id: "category", label: "Categorias", href: "/categories" },
-        { id: "about", label: "Sobre", href: "/aboult" }
+        { id: "about", label: "Sobre", href: "/about" }
     ];
 
     const itensSocial = [
         { id: "Account", href: user ? "/account" : "/login", icon: <UserRound size='1.8rem' /> },
-        { id: "setting", href: "/cart", icon: <ShoppingCart size='1.8rem' /> }
+        { 
+            id: "cart", 
+            href: "/carrinho",
+            icon: (
+                <div className="relative flex items-center">
+                    <ShoppingCart size='1.8rem' />
+                    {totalItems > 0 && (
+                        <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full">
+                            {totalItems}
+                        </span>
+                    )}
+                </div>
+            ) 
+        }
     ];
 
     const handleMobileClick = () => setIsMenuOpen(false);
