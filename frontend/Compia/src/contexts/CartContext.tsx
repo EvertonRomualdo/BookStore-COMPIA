@@ -17,7 +17,8 @@ export interface CartItem extends Book {
 interface CartContextData {
     cartItems: CartItem[];
     addToCart: (book: Book) => void;
-    removeFromCart: (id: number) => void; 
+    removeFromCart: (id: number) => void;
+    clearCart: () => void; 
 }
 
 export const CartContext = createContext<CartContextData>({} as CartContextData);
@@ -53,8 +54,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
         setCartItems(cartItems.filter(item => item.id !== id));
     }
 
+    function clearCart() {
+        setCartItems([]);
+    }
+
     return (
-        <CartContext.Provider value={{ cartItems, addToCart, removeFromCart }}>
+        <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, clearCart }}>
             {children}
         </CartContext.Provider>
     );

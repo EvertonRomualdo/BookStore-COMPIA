@@ -11,7 +11,7 @@ type NavBarProps = {
 function NavBar({
                     items,
                     className,
-                    activeClassName = " text- text-purple-600 border-b-2 pb-1 border-purple-600 cursor-pointer",
+                    activeClassName = "text-purple-600 border-b-2 pb-1 border-purple-600 cursor-pointer",
                     inactiveClassName = "text-gray-600 hover:text-purple-600 cursor-pointer",
                 }: NavBarProps) {
 

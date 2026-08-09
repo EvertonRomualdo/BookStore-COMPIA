@@ -1,9 +1,8 @@
 import { ShoppingCart } from 'lucide-react';
 import { useContext, useState } from "react";
-// Importe o seu contexto
 import { CartContext } from "../../contexts/CartContext";
 
-// Exportando as interfaces para podermos usar no banco de dados (ProductsPage)
+
 export interface Tag {
   label: string;
   colorClass: string;
@@ -15,7 +14,7 @@ export interface ProductCardProps {
     id: number;
     title: string;
     author: string;
-    price: number; // Mantido como número para manter a precisão máxima exigida
+    price: number;
     imageUrl: string;
     oldPrice?: number;
     isNew?: boolean;
