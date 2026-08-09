@@ -1,4 +1,4 @@
-import { createContext, useState, type ReactNode } from "react";
+import { createContext, useState, useEffect, type ReactNode } from "react";
 
 export interface Book {
     id: number;
@@ -6,6 +6,8 @@ export interface Book {
     author: string;
     price: number; 
     imageUrl: string;
+    oldPrice?: number;
+    isNew?: boolean;
 }
 
 export interface CartItem extends Book {
@@ -21,7 +23,17 @@ interface CartContextData {
 export const CartContext = createContext<CartContextData>({} as CartContextData);
 
 export function CartProvider({ children }: { children: ReactNode }) {
-    const [cartItems, setCartItems] = useState<CartItem[]>([]);
+    
+    
+    const [cartItems, setCartItems] = useState<CartItem[]>(() => {
+        const storedCart = localStorage.getItem('cartDB');
+        return storedCart ? JSON.parse(storedCart) : [];
+    });
+
+    
+    useEffect(() => {
+        localStorage.setItem('cartDB', JSON.stringify(cartItems));
+    }, [cartItems]);
 
     function addToCart(book: Book) {
         const itemExists = cartItems.find(item => item.id === book.id);
