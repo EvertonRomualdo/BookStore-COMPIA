@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useSearchParams,} from 'react-router-dom';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 import ProductCard from '../components/ProductCard/ProductCard';
@@ -9,7 +9,6 @@ import { Library } from 'lucide-react';
 
 export function CategoryPage() {
     const [searchParams, setSearchParams] = useSearchParams();
-    const navigate = useNavigate();
     
     const currentTag = searchParams.get('tag') || 'TODOS';
     
