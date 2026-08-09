@@ -25,11 +25,19 @@ function AboutPage() {
                     />
 
                     <div className="flex flex-col gap-5 p-8 md:p-12 md:w-1/2 mb-15">
-                        <h3 className="text-2xl md:text-3xl font-bold text-[#111827]">Origem nos Corredores da UFCG</h3>
+                        <h3 className="text-2xl md:text-3xl font-bold text-[#111827]">Com Origem na UFCG</h3>
                         <p className="text-gray-600 text-justify leading-relaxed">
-                            A COMPIA nasceu do desejo de conectar a excelência da pesquisa produzida
-                            na Universidade Federal de Campina Grande com o mercado de tecnologia global.
-                            Nossa missão é transformar teses complexas em guias práticos e acessíveis.
+                            A COMPIA nasceu com o propósito de publicar e disseminar conhecimento de alta qualidade na
+                            área de Inteligência Artificial, conectando o rigor da produção acadêmica às necessidades do
+                            mercado de tecnologia. Por meio de livros, revistas e materiais digitais, reunimos conteúdos
+                            sobre temas como Inteligência Artificial, arquitetura de software, blockchain, criptografia
+                            e cibersegurança.
+                        </p>
+                        <p className="text-gray-600 text-justify leading-relaxed">
+                            Valorizamos autores nacionais e conhecimentos relevantes, atuais e acessíveis, transformando
+                            conceitos técnicos em materiais que apoiam estudantes, pesquisadores e profissionais em sua
+                            formação e desenvolvimento. Assim, a COMPIA busca ser uma ponte entre a universidade e o
+                            mercado de trabalho, contribuindo para a disseminação e valorização do conhecimento em tecnologia.
                         </p>
                     </div>
                 </div>

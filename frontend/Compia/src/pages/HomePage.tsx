@@ -4,15 +4,15 @@ import InformationCardIcon from '../components/InformationCard/InformationCardIc
 import { Brain, Box, Shield, Server } from 'lucide-react';
 import ProductCard from '../components/ProductCard/ProductCard';
 import Footer from '../components/Footer/Footer';
-import { Link } from 'react-router';
-import {getImageBookUrl} from "../helpers/imageHelper.ts";
+import { Link, useNavigate } from 'react-router-dom';
+import { getImageBookUrl } from "../helpers/imageHelper.ts";
 
 export function HomePage() {
+    const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-[#F9FAFB]">
         <Header />
 
-        {/* Intro*/}
         <main className="max-w-7xl mx-auto px-6 sm:px-8 py-20 lg:py-32 flex flex-col-reverse lg:flex-row items-center justify-between gap-16">
             <div className="flex flex-col items-start gap-6 lg:w-1/2">
                 <h1 className="text-6xl lg:text-8xl font-extrabold text-[#111827] leading-[1.1] tracking-tight">
@@ -20,21 +20,31 @@ export function HomePage() {
                     com a <span className="text-[#6366F1]">Inteligência <br className="hidden lg:block" /> Artificial</span>
                 </h1>
                 <p className="text-gray-500 text-xl sm:text-2xl max-w-lg leading-relaxed mt-2">
-                    Livros e e-books especializados em IA, Arquitetura de Software e Cibersegurança para estudantes e profissionais que constroem o amanhã.
+                    Livros e e-books especializados em IA, Arquitetura de Software e Cibersegurança para estudantes e profissionais que constroem o amanhã
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 mt-6 w-full sm:w-auto">
-                    <DefaultButton variant="primary" className="px-8 py-4 text-base rounded-lg shadow-md shadow-purple-200">
-                    Explorar Livros <span className="ml-1 font-bold">→</span>
+
+                    <DefaultButton
+                        variant="primary"
+                        className="px-8 py-4 text-base rounded-lg shadow-md shadow-purple-200"
+                        onClick={() => navigate('/catalog')}
+                    >
+                        Explorar Livros <span className="ml-1 font-bold"> </span>
                     </DefaultButton>
-                    <DefaultButton variant="secondary" className="px-8 py-4 text-base rounded-lg">
-                    Conheça a Editora
+
+                    <DefaultButton
+                        variant="secondary"
+                        className="px-8 py-4 text-base rounded-lg"
+                        onClick={() => navigate('/aboult')}
+                    >
+                        Conheça a Editora
                     </DefaultButton>
+
                 </div>
             </div>
             <div className="hidden lg:block lg:w-1/2"></div>
         </main>
 
-        {/* Explore Section*/}
         <section className="max-w-7xl mx-auto px-6 sm:px-8 pb-20">
             <div className="text-center mb-12 flex flex-col items-center">
                 <h2 className="text-3xl lg:text-4xl font-bold text-[#111827]">
@@ -52,21 +62,21 @@ export function HomePage() {
             </div>
         </section>
 
-        {/* Main books disponible */}
         <section className="max-w-7xl mx-auto px-6 sm:px-8 pb-32" id="catalogo">
-            
+
             <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-10 gap-6">
                 <div>
                     <h2 className="text-3xl font-extrabold text-[#111827]">Catálogo de Publicações</h2>
                     <p className="text-gray-500 text-lg mt-1">Lançamentos e mais vendidos</p>
                 </div>
-            
+
                 <div className="flex flex-wrap gap-3">
-                   <span className='px-5 py-2 rounded-full text-sm font-semibold bg-[#1E1B4B] text-white'><Link to='/register'>Veja Nosso Catalogo Completo</Link></span>
+                    <span className='px-5 py-2 rounded-full text-sm font-semibold bg-[#1E1B4B] text-white hover:bg-[#2d2859] transition-colors cursor-pointer'>
+                       <Link to='/catalog'>Veja Nosso Catalogo Completo</Link>
+                   </span>
                 </div>
             </div>
 
-            {/* Main Books */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             
                 <ProductCard
