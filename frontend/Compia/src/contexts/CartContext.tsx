@@ -1,61 +1,83 @@
 import { createContext, useState, useEffect, type ReactNode } from "react";
+import { getItem, setItem, STORAGE_KEYS } from "../service/storage";
+import { useAuth } from "./AuthContext";
 
-export interface Book {
+export interface CartItem {
     id: number;
     title: string;
-    author: string;
-    price: number; 
+    price: number;
     imageUrl: string;
-    oldPrice?: number;
-    isNew?: boolean;
-}
-
-export interface CartItem extends Book {
     quantity: number;
+    tags?: any[];
 }
 
 interface CartContextData {
     cartItems: CartItem[];
-    addToCart: (book: Book) => void;
+    addToCart: (book: any) => void;
     removeFromCart: (id: number) => void;
-    clearCart: () => void; 
+    clearCart: () => void;
 }
 
 export const CartContext = createContext<CartContextData>({} as CartContextData);
 
 export function CartProvider({ children }: { children: ReactNode }) {
-    
-    
-    const [cartItems, setCartItems] = useState<CartItem[]>(() => {
-        const storedCart = localStorage.getItem('cartDB');
-        return storedCart ? JSON.parse(storedCart) : [];
-    });
+    const { user } = useAuth();
+    const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
-    
+    const getCartKey = () => user ? `${STORAGE_KEYS.CART}_${user.email}` : STORAGE_KEYS.CART;
+
     useEffect(() => {
-        localStorage.setItem('cartDB', JSON.stringify(cartItems));
-    }, [cartItems]);
-
-    function addToCart(book: Book) {
-        const itemExists = cartItems.find(item => item.id === book.id);
+        const guestCart = getItem<CartItem[]>(STORAGE_KEYS.CART) || [];
         
-        if (itemExists) {
-            setCartItems(
-                cartItems.map(item => 
-                    item.id === book.id ? { ...item, quantity: item.quantity + 1 } : item
-                )
-            );
+        if (user) {
+            const userCartKey = `${STORAGE_KEYS.CART}_${user.email}`;
+            const userCart = getItem<CartItem[]>(userCartKey) || [];
+            
+            if (guestCart.length > 0) {
+                const mergedCart = [...userCart];
+                guestCart.forEach(guestItem => {
+                    const existingItem = mergedCart.find(item => item.id === guestItem.id);
+                    if (existingItem) {
+                        existingItem.quantity += guestItem.quantity;
+                    } else {
+                        mergedCart.push(guestItem);
+                    }
+                });
+                
+                setCartItems(mergedCart);
+                setItem(userCartKey, mergedCart);
+                setItem(STORAGE_KEYS.CART, []);
+            } else {
+                setCartItems(userCart);
+            }
         } else {
-            setCartItems([...cartItems, { ...book, quantity: 1 }]);
+            setCartItems(guestCart);
+        }
+    }, [user]);
+
+    const saveCart = (newCart: CartItem[]) => {
+        setCartItems(newCart);
+        setItem(getCartKey(), newCart);
+    };
+
+    function addToCart(book: any) {
+        const existingItem = cartItems.find(item => item.id === book.id);
+        if (existingItem) {
+            const updatedCart = cartItems.map(item => 
+                item.id === book.id ? { ...item, quantity: item.quantity + 1 } : item
+            );
+            saveCart(updatedCart);
+        } else {
+            saveCart([...cartItems, { ...book, quantity: 1 }]);
         }
     }
 
     function removeFromCart(id: number) {
-        setCartItems(cartItems.filter(item => item.id !== id));
+        saveCart(cartItems.filter(item => item.id !== id));
     }
 
     function clearCart() {
-        setCartItems([]);
+        saveCart([]);
     }
 
     return (

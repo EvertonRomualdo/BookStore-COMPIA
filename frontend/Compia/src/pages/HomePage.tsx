@@ -50,7 +50,7 @@ export function HomePage() {
                         <DefaultButton
                             variant="secondary"
                             className="px-8 py-4 text-base rounded-lg"
-                            onClick={() => navigate('/aboult')}
+                            onClick={() => navigate('/about')}
                         >
                             Conheça a Editora
                         </DefaultButton>
@@ -70,10 +70,21 @@ export function HomePage() {
                     </p>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <InformationCardIcon icon={<Brain className="text-[#6366F1]" size={28} />} title="Inteligência Artificial" description="12 obras publicadas" />
-                    <InformationCardIcon icon={<Box className="text-[#6366F1]" size={28} />} title="Blockchain" description="8 obras publicadas" />
-                    <InformationCardIcon icon={<Shield className="text-[#6366F1]" size={28} />} title="Cibersegurança" description="5 obras publicadas" />
-                    <InformationCardIcon icon={<Server className="text-[#6366F1]" size={28} />} title="Arquit. de Software" description="15 obras publicadas" />
+                    <Link to="/categories?tag=IA" className="block transition-transform hover:-translate-y-1">
+                        <InformationCardIcon icon={<Brain className="text-[#6366F1]" size={28} />} title="Inteligência Artificial" description="12 obras publicadas" />
+                    </Link>
+                    
+                    <Link to="/categories?tag=BLOCKCHAIN" className="block transition-transform hover:-translate-y-1">
+                        <InformationCardIcon icon={<Box className="text-[#6366F1]" size={28} />} title="Blockchain" description="8 obras publicadas" />
+                    </Link>
+                    
+                    <Link to="/categories?tag=SEGURANÇA" className="block transition-transform hover:-translate-y-1">
+                        <InformationCardIcon icon={<Shield className="text-[#6366F1]" size={28} />} title="Cibersegurança" description="5 obras publicadas" />
+                    </Link>
+                    
+                    <Link to="/categories?tag=ARQUITETURA" className="block transition-transform hover:-translate-y-1">
+                        <InformationCardIcon icon={<Server className="text-[#6366F1]" size={28} />} title="Arquit. de Software" description="15 obras publicadas" />
+                    </Link>
                 </div>
             </section>
 

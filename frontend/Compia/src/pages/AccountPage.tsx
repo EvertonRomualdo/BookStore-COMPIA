@@ -5,26 +5,23 @@ import { AccountSidebar } from "../components/AccountSidebar/AccountSidebar";
 import { OrderCard } from "../components/OrderCard/OrderCard";
 import { Book, Zap, PackageOpen } from "lucide-react";
 import { getItem, STORAGE_KEYS } from "../service/storage";
+import { downloadEbook } from "../helpers/fileHelper";
+import { useAuth } from "../contexts/AuthContext"; 
 
 function AccountPage() {
+    const { user } = useAuth(); // 2. Puxando quem está logado
     const [orders, setOrders] = useState<any[]>([]);
 
     useEffect(() => {
-        const savedOrders = getItem<any[]>(STORAGE_KEYS.ORDERS);
-        if (savedOrders) {
-            setOrders(savedOrders);
+        const savedOrders = getItem<any[]>(STORAGE_KEYS.ORDERS) || [];
+        
+        if (user && user.email) {
+            const myOrders = savedOrders.filter((order: any) => order.userEmail === user.email);
+            setOrders(myOrders);
+        } else {
+            setOrders([]); 
         }
-    }, []);
-
-    const downloadEbook = () => {
-        const element = document.createElement("a");
-        const file = new Blob(["Lorem ipsum dolor sit amet."], {type: 'text/plain'});
-        element.href = URL.createObjectURL(file);
-        element.download = "ebook-compia.txt";
-        document.body.appendChild(element);
-        element.click();
-        document.body.removeChild(element);
-    };
+    }, [user]);
 
     return (
         <div className="bg-[#F9FAFB] min-h-screen flex flex-col font-sans">
@@ -53,6 +50,7 @@ function AccountPage() {
                                         key={index}
                                         orderNumber={order.id}
                                         title={order.title}
+                                        imageUrl={order.imageUrl}
                                         date={order.date}
                                         icon={order.isDigitalOnly ? <Zap size={28} fill="currentColor" /> : <Book size={28} fill="currentColor" />}
                                         iconBgColor={order.isDigitalOnly ? "bg-orange-50" : "bg-blue-50"}
@@ -60,11 +58,13 @@ function AccountPage() {
                                         statusText={order.isDigitalOnly ? "Disponível" : "Preparando Envio"}
                                         statusBgColor={order.isDigitalOnly ? "bg-blue-100" : "bg-emerald-100"}
                                         statusTextColor={order.isDigitalOnly ? "text-blue-700" : "text-emerald-700"}
+                                    
                                         price={`R$ ${order.total.toFixed(2).replace('.', ',')}`}
-                                        actionButton={order.isDigitalOnly ? {
-                                            label: "Download",
-                                            onClick: downloadEbook
-                                        } : undefined}
+                                        
+                                        actionButton={undefined} 
+                                        
+                                        items={order.items}
+                                        onDownloadItem={(bookTitle) => downloadEbook(bookTitle)}
                                     />
                                 ))
                             )}

@@ -20,7 +20,7 @@ function Header(){
         { id: "start", label: "Inicio", href: "/" },
         { id: "catalog", label: "Catálogo", href: "/catalog" },
         { id: "category", label: "Categorias", href: "/categories" },
-        { id: "about", label: "Sobre", href: "/aboult" }
+        { id: "about", label: "Sobre", href: "/about" }
     ];
 
     const itensSocial = [

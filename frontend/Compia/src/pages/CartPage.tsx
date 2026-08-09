@@ -2,10 +2,13 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header/Header";
 import { CartContext } from "../contexts/CartContext";
+import { useAuth } from "../contexts/AuthContext";
 
 export function CartPage() {
     const navigate = useNavigate();
     const { cartItems, removeFromCart } = useContext(CartContext);
+
+    const { user } = useAuth();
 
     const total = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0.0);
 
@@ -84,8 +87,16 @@ export function CartPage() {
                                 >
                                     Continuar Comprando
                                 </button>
+                                
                                 <button
-                                    onClick={() => navigate('/checkout')}
+                                    onClick={() => {
+                                        if (!user) {
+                                            alert("Faça login ou cadastre-se para finalizar sua compra. Seus itens estão salvos!");
+                                            navigate('/login');
+                                        } else {
+                                            navigate('/checkout');
+                                        }
+                                    }}
                                     className="px-8 py-3 bg-[#5A46F3] text-white font-semibold rounded-lg hover:bg-purple-700 transition-colors shadow-md w-full sm:w-auto"
                                 >
                                     Finalizar Compra
