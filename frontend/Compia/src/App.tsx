@@ -19,6 +19,7 @@ import { CheckoutPage } from './pages/CheckoutPage'
 import CartPage from './pages/CartPage'
 import CategoryPage from './pages/CategoryPage'
 import ProductsDetailsPage from './pages/ProductsDetailsPage'
+import { AdminDashboardPage } from './pages/AdminDashboardPage';
 
 function App() {
   
@@ -52,6 +53,7 @@ function App() {
           <Route path='/account/profile' element={<AccountProfile/>}/>
           <Route path="/account/security" element={<AccountSecurity />} />
           <Route path='/checkout' element={<CheckoutPage/>}/>
+          <Route path="/admin" element={<AdminDashboardPage />} />
           <Route path='*' element={<><h1>Not Found</h1></>}/>
         </Routes>
       </BrowserRouter>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -21,6 +21,21 @@ function LoginForm() {
   const { login } = useAuth();
   const navigate = useNavigate();
 
+  // --- GARANTE QUE O ADMIN EXISTE NO SISTEMA ---
+  useEffect(() => {
+    const users = getItem<any[]>(STORAGE_KEYS.USERS) || [];
+    const adminExists = users.find(u => u.email === 'admin@admin.com');
+    
+    if (!adminExists) {
+        const adminUser = {
+            name: 'Administrador',
+            email: 'admin@admin.com',
+            password: 'admin'
+        };
+        setItem(STORAGE_KEYS.USERS, [...users, adminUser]);
+    }
+  }, []);
+
   const [showForgotModal, setShowForgotModal] = useState(false);
   const [recoverStep, setRecoverStep] = useState(1); 
   const [recoverEmail, setRecoverEmail] = useState("");
@@ -40,7 +55,13 @@ function LoginForm() {
   const onSubmit = async (data: LoginData) => {
     try {
       await login(data.email, data.password);
-      navigate('/account');
+      
+      if (data.email === 'admin@admin.com') {
+          navigate('/admin');
+      } else {
+          navigate('/account'); 
+      }
+
     } catch (error: any) {
       const mensagem = error instanceof Error ? error.message : 'Erro desconhecido ao fazer login.';
       setError('root', { type: 'manual', message: mensagem });
@@ -79,13 +100,13 @@ function LoginForm() {
       const users = getItem<any[]>(STORAGE_KEYS.USERS) || [];
       const updatedUsers = users.map(u => {
           if (u.email === recoverEmail) {
-              return { ...u, password: newPassword }; // Substitui a senha antiga
+              return { ...u, password: newPassword };
           }
           return u;
       });
 
       setItem(STORAGE_KEYS.USERS, updatedUsers);
-      setRecoverStep(3); // Mostra tela de sucesso
+      setRecoverStep(3); 
   };
 
   const closeRecoverModal = () => {
